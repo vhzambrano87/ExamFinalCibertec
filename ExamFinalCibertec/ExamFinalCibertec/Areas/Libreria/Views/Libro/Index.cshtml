@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ExamFinalCibertec.Model.DTO.LibroModelView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Registrar")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.notas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecPublicacion)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.notas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecPublicacion)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "Modificar", new { id=item.libroId }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { id=item.libroId }) |
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+
