@@ -7,6 +7,12 @@ namespace ExamFinalCibertec.Model
     [Table("dbo.Autor")]
     public partial class Autor
     {
+
+        //public Autor()
+        //{
+        //    Libro = new HashSet<Libro>();
+        //}
+
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -41,7 +47,7 @@ namespace ExamFinalCibertec.Model
         [StringLength(50)]
         public string tema { get; set; }
 
-        public virtual ICollection<Libro> Libro { get; set; }
+        //public virtual ICollection<Libro> Libro { get; set; }
 
     }
 }

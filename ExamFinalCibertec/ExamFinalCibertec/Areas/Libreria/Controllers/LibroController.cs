@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ExamFinalCibertec.AccesoDatos;
 using ExamFinalCibertec.Model;
+using ExamFinalCibertec.Model.DTO;
 
 namespace ExamFinalCibertec.Areas.Libreria.Controllers
 {
@@ -30,22 +31,26 @@ namespace ExamFinalCibertec.Areas.Libreria.Controllers
             return PartialView("_Listar", _libroRepositorio.ObtenerListadoDto());
         }
 
+        public ActionResult Registrar()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Registrar(Libro libro)
         {
-            if (!ModelState.IsValid) return PartialView("_Registrar", libro);
+            if (!ModelState.IsValid)
+                return View(libro);
             _libroRepositorio.Agregar(libro);
-            return new HttpStatusCodeResult(HttpStatusCode.OK); //RedirectToAction("Index");
+            //return new HttpStatusCodeResult(HttpStatusCode.OK);
+           return RedirectToAction("Index");
         }
-
-        [OutputCache(Duration = 0)]
+        
         public ActionResult Modificar(int id)
-        {
-            var libro = _libroRepositorio.ObtenerPorId(id);
-            if (libro == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            return PartialView("_Modificar", libro);
+        {           
+           return View(_libroRepositorio.ObtenerPorId(id));
         }
 
         [HttpPost]
@@ -53,17 +58,17 @@ namespace ExamFinalCibertec.Areas.Libreria.Controllers
         [OutputCache(Duration = 0)]
         public ActionResult Modificar(Libro libro)
         {
-            if (!ModelState.IsValid) return PartialView("_Modificar", libro);
+            if (!ModelState.IsValid) return View("Modificar", libro);
             _libroRepositorio.Modificar(libro);
-            return RedirectToRoute("Libreria_default");
+            return RedirectToAction("Index");
         }
 
         [OutputCache(Duration = 0)]
         public ActionResult Eliminar(int id)
         {
             var libro = _libroRepositorio.ObtenerPorId(id);
-            if (libro == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            return PartialView("_Eliminar", libro);
+            _libroRepositorio.Eliminar(libro);
+            return RedirectToAction("Index");
         }
         private int TotalPages(int? size)
         {

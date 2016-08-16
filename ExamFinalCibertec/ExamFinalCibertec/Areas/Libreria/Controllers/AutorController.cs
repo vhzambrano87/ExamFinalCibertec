@@ -23,24 +23,20 @@ namespace ExamFinalCibertec.Areas.Libreria.Controllers
         [OutputCache(Duration = 0)]
         public ActionResult Index()
         {
-            ViewBag.Count = TotalPages(10);
+            return View(_autorRepositorio.ObtenerListadoDto());
+        }
+        public ActionResult Registrar()
+        {
             return View();
         }
-
-        [OutputCache(Duration = 0)]
-        public ActionResult Listar()
-        {            
-            return PartialView("_Listar", _autorRepositorio.ObtenerListadoDto());
-        }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Registrar(Autor autor)
         {
-            if (!ModelState.IsValid) return PartialView("_Registrar", autor);
+            if (!ModelState.IsValid) return View(autor);
             _autorRepositorio.Agregar(autor);
-            return new HttpStatusCodeResult(HttpStatusCode.OK); //RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         [OutputCache(Duration = 0)]
@@ -48,7 +44,7 @@ namespace ExamFinalCibertec.Areas.Libreria.Controllers
         {
             var autor = _autorRepositorio.ObtenerPorId(id);
             if (autor == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            return PartialView("_Modificar", autor);
+            return View("Modificar", autor);
         }
 
         [HttpPost]
@@ -56,17 +52,17 @@ namespace ExamFinalCibertec.Areas.Libreria.Controllers
         [OutputCache(Duration = 0)]
         public ActionResult Modificar(Autor autor)
         {
-            if (!ModelState.IsValid) return PartialView("_Modificar", autor);
+            if (!ModelState.IsValid) return View("Modificar", autor);
             _autorRepositorio.Modificar(autor);
-            return RedirectToRoute("Libreria_default");
+            return RedirectToAction("Index");
         }
 
         [OutputCache(Duration = 0)]
         public ActionResult Eliminar(int id)
         {
             var autor = _autorRepositorio.ObtenerPorId(id);
-            if (autor == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            return PartialView("_Eliminar", autor);
+            _autorRepositorio.Eliminar(autor);
+            return RedirectToAction("Index");
         }
         private int TotalPages(int? size)
         {

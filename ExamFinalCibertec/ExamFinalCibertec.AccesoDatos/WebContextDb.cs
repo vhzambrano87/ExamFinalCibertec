@@ -17,13 +17,13 @@ namespace ExamFinalCibertec.AccesoDatos
         public virtual DbSet<Libro> Libro { get; set; }
 
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Entity<Autor>()
-                .HasMany(e => e.Libro)
-                .WithRequired(e => e.Autor)
-                .WillCascadeOnDelete(false);            
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        //    modelBuilder.Entity<Autor>()
+        //        .HasMany(e => e.Libro)
+        //        .WithRequired(e => e.Autor)
+        //        .WillCascadeOnDelete(false);            
+        //}
     }
 }

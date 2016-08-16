@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExamFinalCibertec.Model
 {
-    [Table("dbo.Autor")]
+    [Table("dbo.Libro")]
     public partial class Libro
     {
         [Key]
@@ -26,7 +26,7 @@ namespace ExamFinalCibertec.Model
         public string notas { get; set; }[Display(Name ="Nombre: ")]
         [DataType(DataType.Date)]
         public DateTime fecPublicacion { get; set; }
-        public virtual Autor Autor { get; set; }
+        //public virtual Autor Autor { get; set; }
 
     }
 }

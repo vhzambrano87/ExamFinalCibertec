@@ -33,8 +33,7 @@ namespace ExamFinalCibertec.AccesoDatos
         public static Autor AutorPorId(this WebContextDb context, int id)
         {
             return context.Autor
-                .Include(p => p.Libro)
-                .FirstOrDefault(c => c.autorId == id);
+               .FirstOrDefault(c => c.autorId == id);
         }
 
     }
